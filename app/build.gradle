@@ -29,11 +29,15 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile "android.arch.lifecycle:runtime:1.0.0-alpha3"
-    compile "android.arch.lifecycle:extensions:1.0.0-alpha3"
-    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha3"
+    compile "android.arch.lifecycle:runtime:$android_arch_version"
+    compile "android.arch.lifecycle:extensions:$android_arch_version"
+    compile "android.arch.persistence.room:runtime:$android_arch_version"
+
+    kapt "android.arch.lifecycle:compiler:$android_arch_version"
+    kapt "android.arch.persistence.room:compiler:$android_arch_version"
 
     testCompile 'junit:junit:4.12'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
 }
 repositories {
     mavenCentral()

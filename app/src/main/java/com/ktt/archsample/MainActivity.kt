@@ -6,6 +6,8 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
@@ -14,27 +16,52 @@ import android.widget.TextView
 class MainActivity : AppCompatActivity(), LifecycleRegistryOwner, View.OnClickListener {
     private val mLifecycleRegistry = LifecycleRegistry(this)
 
-    private var mTextView: TextView? = null
-    private var mButton: Button? = null
-    private var mProgressBar: ProgressBar? = null
+    private lateinit var mTextView: TextView
+    private lateinit var mButton: Button
+    private lateinit var mProgressBar: ProgressBar
+    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mHistoryAdapter: HistoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val mViewModel = viewModel
-        lifecycle.addObserver(mViewModel)
+        lifecycle.addObserver(viewModel)
 
+        findViews()
+        bindViews()
+    }
+
+    private fun findViews() {
         mTextView = findViewById(R.id.textView) as TextView
         mButton = findViewById(R.id.button) as Button
         mProgressBar = findViewById(R.id.progressBar) as ProgressBar
+        mRecyclerView = findViewById(R.id.recyclerView) as RecyclerView
 
-        mViewModel.progressLiveData.observe(this, Observer<Int> { integer -> mProgressBar?.progress = integer!! })
+        mProgressBar.max = 100
+        mButton.setOnClickListener(this)
 
-        mViewModel.resultLiveData.observe(this, Observer<Int> { integer -> mTextView?.text = integer.toString() })
+        mHistoryAdapter = HistoryAdapter()
+        mRecyclerView.adapter = mHistoryAdapter
+        mRecyclerView.layoutManager = LinearLayoutManager(this)
+    }
 
-        mProgressBar?.max = 100
-        mButton?.setOnClickListener(this)
+    private fun bindViews() {
+        viewModel.progressLiveData.observe(this, Observer<Int> {
+            integer ->
+            mProgressBar.progress = integer!!
+        })
+
+        viewModel.resultLiveData.observe(this, Observer<Int> {
+            integer ->
+            mTextView.text = integer.toString()
+        })
+
+        viewModel.historyLiveData.observe(this, Observer<List<Record>> {
+            list ->
+            mHistoryAdapter.update(list)
+            mHistoryAdapter.notifyDataSetChanged()
+        })
     }
 
     override fun getLifecycle(): LifecycleRegistry {

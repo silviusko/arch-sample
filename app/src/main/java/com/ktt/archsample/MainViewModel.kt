@@ -8,16 +8,20 @@ import android.util.Log
  * @author luke_kao
  */
 
-class MainViewModel(application: Application) : AndroidViewModel(application), LifecycleObserver, DiceGenerator.Callback {
+class MainViewModel(application: Application) : AndroidViewModel(application),
+        LifecycleObserver,
+        DiceGenerator.Callback,
+        RecordRepository.Callback {
+
     private val mProgressLiveData: MutableLiveData<Int> = MutableLiveData()
     private val mResultLiveData: MutableLiveData<Int> = MutableLiveData()
-    private var mHistoryLiveData: LiveData<List<Record>> = MutableLiveData()
+    private var mHistoryLiveData: MutableLiveData<List<Record>> = MutableLiveData()
 
     private val repository: RecordRepository = RecordRepository(App.dataBase?.recordDao()!!, App.executor!!)
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun refresh() {
-        mHistoryLiveData = repository.getRecords()
+        repository.getRecords(this)
     }
 
     fun dice() {
@@ -43,6 +47,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
         refresh()
     }
 
+    override fun onRecordsLoaded(records: List<Record>) {
+        mHistoryLiveData.postValue(records)
+    }
+
+    override fun onCleared() {
+        Log.d("MainViewModel", "onCleared")
+    }
+
     val progressLiveData: LiveData<Int>
         get() = mProgressLiveData
 
@@ -51,55 +63,4 @@ class MainViewModel(application: Application) : AndroidViewModel(application), L
 
     val historyLiveData: LiveData<List<Record>>
         get() = mHistoryLiveData
-
-
-    ///////////////////////////////////////////////
-    //
-    //  lifecycle events
-    //
-    ///////////////////////////////////////////////
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    internal fun onCreate() {
-        Log.d("MainViewModel", "onCreate")
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    internal fun onResume1() {
-        Log.d("MainViewModel", "onResume1")
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    internal fun onResume2() {
-        Log.d("MainViewModel", "onResume2")
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
-    internal fun onAny() {
-        Log.d("MainViewModel", "onAny")
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    internal fun onDestroy() {
-        Log.d("MainViewModel", "onDestroy")
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    internal fun onPause() {
-        Log.d("MainViewModel", "onPause")
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    internal fun onStart() {
-        Log.d("MainViewModel", "onStart")
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    internal fun onStop() {
-        Log.d("MainViewModel", "onStop")
-    }
-
-    override fun onCleared() {
-        Log.d("MainViewModel", "onCleared")
-    }
 }

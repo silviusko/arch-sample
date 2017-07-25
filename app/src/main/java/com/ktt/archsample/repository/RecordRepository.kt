@@ -1,5 +1,7 @@
-package com.ktt.archsample
+package com.ktt.archsample.repository
 
+import com.ktt.archsample.dao.Record
+import com.ktt.archsample.dao.RecordDao
 import java.util.concurrent.Executor
 
 /**

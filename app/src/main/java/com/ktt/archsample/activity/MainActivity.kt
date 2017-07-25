@@ -1,4 +1,4 @@
-package com.ktt.archsample
+package com.ktt.archsample.activity
 
 import android.arch.lifecycle.LifecycleRegistry
 import android.arch.lifecycle.LifecycleRegistryOwner
@@ -12,6 +12,10 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.ktt.archsample.R
+import com.ktt.archsample.adapter.HistoryAdapter
+import com.ktt.archsample.dao.Record
+import com.ktt.archsample.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity(), LifecycleRegistryOwner, View.OnClickListener {
     private val mLifecycleRegistry = LifecycleRegistry(this)

@@ -1,4 +1,4 @@
-package com.ktt.archsample
+package com.ktt.archsample.dao
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase

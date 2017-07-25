@@ -1,4 +1,4 @@
-package com.ktt.archsample
+package com.ktt.archsample.task
 
 import android.os.AsyncTask
 import android.os.SystemClock

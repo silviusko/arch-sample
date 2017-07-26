@@ -37,10 +37,10 @@ class MainActivity : AppCompatActivity(), LifecycleRegistryOwner, View.OnClickLi
     }
 
     private fun findViews() {
-        mTextView = findViewById(R.id.textView) as TextView
-        mButton = findViewById(R.id.button) as Button
-        mProgressBar = findViewById(R.id.progressBar) as ProgressBar
-        mRecyclerView = findViewById(R.id.recyclerView) as RecyclerView
+        mTextView = findViewById(R.id.textView)
+        mButton = findViewById(R.id.button)
+        mProgressBar = findViewById(R.id.progressBar)
+        mRecyclerView = findViewById(R.id.recyclerView)
 
         mProgressBar.max = 100
         mButton.setOnClickListener(this)

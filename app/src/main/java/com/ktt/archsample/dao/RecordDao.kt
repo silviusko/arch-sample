@@ -15,7 +15,10 @@ interface RecordDao {
     fun loadById(id: Int): Record
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun save(vararg records: Record)
+    fun save(record: Record)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun save(records: List<Record>)
 
     @Update
     fun update(vararg records: Record)

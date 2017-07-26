@@ -19,7 +19,7 @@ class TestUtil {
         fun newRecords(num: Int): List<Record> {
             val records = List(num, {
                 val record = Record()
-                record.value = random.nextInt()
+                record.value = random.nextInt(1000)
                 record
             })
 

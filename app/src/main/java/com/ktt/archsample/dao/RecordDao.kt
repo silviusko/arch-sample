@@ -12,7 +12,7 @@ interface RecordDao {
 
     // replace the :arg0 to the :id
     @Query("SELECT * FROM records WHERE id = :arg0 LIMIT 1")
-    fun loadById(id: Int): Record
+    fun loadById(id: Int): Record?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(record: Record)
@@ -21,7 +21,10 @@ interface RecordDao {
     fun save(records: List<Record>)
 
     @Update
-    fun update(vararg records: Record)
+    fun update(record: Record)
+
+    @Update
+    fun update(records: List<Record>)
 
     @Delete
     fun delete(record: Record)

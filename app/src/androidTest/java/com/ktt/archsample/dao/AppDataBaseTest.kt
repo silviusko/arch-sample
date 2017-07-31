@@ -15,6 +15,8 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 class AppDataBaseTest {
+    private val INIT_DB_SIZE = 5
+
     private lateinit var db: AppDataBase
     private lateinit var recordDao: RecordDao
 
@@ -31,7 +33,7 @@ class AppDataBaseTest {
     }
 
     @Test
-    fun writeRecordAndRead() {
+    fun saveOneAndLoadAll() {
         val record = TestUtil.newRecord()
 
         recordDao.save(record)
@@ -41,15 +43,91 @@ class AppDataBaseTest {
     }
 
     @Test
-    fun writeRecordsAndRead() {
-        val records = TestUtil.newRecords(5)
-
-        recordDao.save(records)
+    fun saveAllAndLoadAll() {
+        val records = buildDataAndSave()
 
         val recordsInDb = recordDao.load()
         Assert.assertTrue(recordsInDb.isNotEmpty())
         for (i in 0 until records.size) {
+            Assert.assertEquals(i + 1, recordsInDb[i].id)
             Assert.assertEquals(records[i].value, recordsInDb[i].value)
         }
+    }
+
+    @Test
+    fun saveAllAndLoadOne() {
+        val records = buildDataAndSave()
+
+        val index = INIT_DB_SIZE / 2
+        val recordInDb = recordDao.loadById(index + 1)
+        Assert.assertNotNull(recordInDb)
+        Assert.assertEquals(records[index].value, recordInDb?.value)
+    }
+
+    @Test
+    fun saveAllAndLoadNoExist() {
+        val records = buildDataAndSave()
+
+        val index = records.size * 2
+        val recordInDb = recordDao.loadById(index - 1)
+        Assert.assertNull(recordInDb)
+    }
+
+    @Test
+    fun updateOne() {
+        val records = buildDataAndLoadFromDb()
+        val targetRecord = records[INIT_DB_SIZE / 2]
+        targetRecord.value += targetRecord.value
+
+        recordDao.update(targetRecord)
+        val recordsInDb = recordDao.load()
+
+        Assert.assertEquals(records.size, recordsInDb.size)
+        records.forEachIndexed { index, record ->
+            Assert.assertEquals(record.value, recordsInDb[index].value)
+        }
+    }
+
+    @Test
+    fun updateAll() {
+        val records = buildDataAndLoadFromDb()
+        records.forEach { it.value *= it.value }
+
+        recordDao.update(records)
+        val recordsInDb = recordDao.load()
+
+        Assert.assertEquals(records.size, recordsInDb.size)
+        records.forEachIndexed { index, record ->
+            Assert.assertEquals(record.value, recordsInDb[index].value)
+        }
+    }
+
+    @Test
+    fun deleteOne() {
+        val records = buildDataAndLoadFromDb()
+
+        val record = records[records.size / 2]
+        recordDao.delete(record)
+
+        val recordsInDb = recordDao.load()
+
+        Assert.assertEquals(records.size - 1, recordsInDb.size)
+        recordsInDb.forEach {
+            Assert.assertNotEquals(record.id, it.id)
+        }
+    }
+
+    private fun buildDataAndSave(): List<Record> {
+        val records = TestUtil.newRecords(INIT_DB_SIZE)
+        recordDao.save(records)
+
+        return records
+    }
+
+
+    private fun buildDataAndLoadFromDb(): List<Record> {
+        buildDataAndSave()
+
+        return recordDao.load()
     }
 }

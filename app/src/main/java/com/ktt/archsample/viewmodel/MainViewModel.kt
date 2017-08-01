@@ -3,10 +3,11 @@ package com.ktt.archsample.viewmodel
 import android.app.Application
 import android.arch.lifecycle.*
 import android.util.Log
-import com.ktt.archsample.App
 import com.ktt.archsample.dao.Record
+import com.ktt.archsample.repository.DaggerRepositoryComponent
 import com.ktt.archsample.repository.RecordRepository
 import com.ktt.archsample.task.DiceGenerator
+import javax.inject.Inject
 
 /**
  * @author luke_kao
@@ -21,7 +22,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application),
     private val mResultLiveData: MutableLiveData<Int> = MutableLiveData()
     private var mHistoryLiveData: MutableLiveData<List<Record>> = MutableLiveData()
 
-    private val repository: RecordRepository = RecordRepository(App.dataBase?.recordDao()!!, App.executor!!)
+    @Inject
+    lateinit var repository: RecordRepository
+
+    init {
+        val component = DaggerRepositoryComponent.create()
+        component.inject(this)
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun refresh() {

@@ -3,11 +3,12 @@ package com.ktt.archsample.repository
 import com.ktt.archsample.dao.Record
 import com.ktt.archsample.dao.RecordDao
 import java.util.concurrent.Executor
+import javax.inject.Inject
 
 /**
  * @author luke_kao
  */
-class RecordRepository(val dao: RecordDao, val executor: Executor) {
+class RecordRepository @Inject constructor(val dao: RecordDao, val executor: Executor) {
     interface Callback {
         fun onRecordsLoaded(records: List<Record>)
     }

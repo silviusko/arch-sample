@@ -65,7 +65,9 @@ class MainActivity : AppCompatActivity(), LifecycleRegistryOwner, View.OnClickLi
             list ->
             mHistoryAdapter.update(list)
             mHistoryAdapter.notifyDataSetChanged()
-            mRecyclerView.smoothScrollToPosition(mHistoryAdapter.itemCount - 1)
+            if (mHistoryAdapter.itemCount > 0) {
+                mRecyclerView.smoothScrollToPosition(mHistoryAdapter.itemCount - 1)
+            }
         })
     }
 

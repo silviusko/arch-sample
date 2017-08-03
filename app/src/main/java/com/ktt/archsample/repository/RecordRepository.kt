@@ -21,7 +21,8 @@ open class RecordRepository @Inject constructor(val dao: RecordDao, val executor
 
     fun getRecords(callback: Callback) {
         executor.execute {
-            callback.onRecordsLoaded(dao.load())
+            val records = dao.load()
+            callback.onRecordsLoaded(records)
         }
     }
 

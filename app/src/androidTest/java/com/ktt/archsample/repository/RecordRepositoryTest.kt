@@ -20,7 +20,9 @@ class RecordRepositoryTest {
 
     @Before
     fun setUp() {
-        val component = DaggerRepositoryComponent.create()
+        val component = DaggerRepositoryComponent.builder()
+                .repositoryModule(RepositoryTestModule())
+                .build()
         repository = RecordRepository(component.provideRecordDao(), component.provideExecutor())
     }
 
@@ -36,17 +38,20 @@ class RecordRepositoryTest {
 
         countdown.await()
 
-        Mockito.verify(callback, Mockito.times(100)).updateProgress(Mockito.anyInt())
         Mockito.verify(callback).updateResult(Mockito.anyInt())
     }
 
     @Test
     fun getRecords() {
+        val records = TestUtil.newRecords(10)
+        Mockito.`when`(repository.dao.load()).thenReturn(records)
+
         val callback = Mockito.mock(RecordRepository.Callback::class.java)
 
         repository.getRecords(callback)
 
-        Mockito.verify(callback).onRecordsLoaded(Mockito.anyList())
+        Mockito.verify(repository.dao).load()
+        Mockito.verify(callback).onRecordsLoaded(records)
     }
 
     @Test

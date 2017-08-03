@@ -27,7 +27,6 @@ class MainViewModelTest {
                 .inject(viewModel)
     }
 
-    //FIXME: the repository is incorrect to be injected
     @Test
     @UiThreadTest
     fun dice() {

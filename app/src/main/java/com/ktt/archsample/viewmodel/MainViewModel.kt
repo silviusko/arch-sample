@@ -37,14 +37,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application),
     }
 
     override fun updateProgress(progress: Int?) {
-        mProgressLiveData.value = progress
+        mProgressLiveData.value = progress!!
     }
 
     override fun updateResult(result: Int?) {
-        mResultLiveData.value = result
+        mResultLiveData.value = result!!
 
         val record = Record()
-        record.value = result!!
+        record.value = result
 
         repository.saveRecord(record)
 

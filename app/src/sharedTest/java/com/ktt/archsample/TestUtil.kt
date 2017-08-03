@@ -1,4 +1,4 @@
-package com.ktt.archsample.test
+package com.ktt.archsample
 
 import com.ktt.archsample.dao.Record
 import java.util.*

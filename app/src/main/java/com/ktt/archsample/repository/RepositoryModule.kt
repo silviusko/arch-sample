@@ -10,19 +10,23 @@ import java.util.concurrent.Executor
  * @author luke_kao
  */
 @Module
-class RepositoryModule {
+open class RepositoryModule {
     @Provides
     fun provideRepository(dao: RecordDao, executor: Executor): RecordRepository {
-        return RecordRepository(dao, executor)
+        return newRecordRepository(dao, executor)
     }
 
     @Provides
     fun provideDao(): RecordDao {
-        return App.dataBase!!.recordDao()
+        return newRecordDao()
     }
 
     @Provides
     fun provideExecutor(): Executor {
-        return App.executor!!
+        return newExecutor()
     }
+
+    open fun newRecordRepository(dao: RecordDao, executor: Executor) = RecordRepository(dao, executor)
+    open fun newRecordDao() = App.dataBase!!.recordDao()
+    open fun newExecutor() = App.executor!!
 }

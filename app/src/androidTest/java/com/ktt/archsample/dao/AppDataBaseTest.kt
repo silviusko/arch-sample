@@ -3,7 +3,7 @@ package com.ktt.archsample.dao
 import android.arch.persistence.room.Room
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
-import com.ktt.archsample.test.TestUtil
+import com.ktt.archsample.TestUtil
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before

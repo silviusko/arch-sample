@@ -4,7 +4,6 @@ import android.app.Application
 import android.arch.lifecycle.*
 import android.util.Log
 import com.ktt.archsample.dao.Record
-import com.ktt.archsample.repository.DaggerRepositoryComponent
 import com.ktt.archsample.repository.RecordRepository
 import com.ktt.archsample.task.DiceGenerator
 import javax.inject.Inject
@@ -25,11 +24,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application),
     @Inject
     lateinit var repository: RecordRepository
 
-    init {
-        val component = DaggerRepositoryComponent.create()
-        component.inject(this)
-    }
-
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun refresh() {
         repository.getRecords(this)
@@ -39,8 +33,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application),
         mProgressLiveData.value = 0
         mResultLiveData.value = 0
 
-        val generator = DiceGenerator(this)
-        generator.execute()
+        repository.dice(this)
     }
 
     override fun updateProgress(progress: Int?) {

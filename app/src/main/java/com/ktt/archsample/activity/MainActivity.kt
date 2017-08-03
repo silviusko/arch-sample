@@ -15,6 +15,7 @@ import android.widget.TextView
 import com.ktt.archsample.R
 import com.ktt.archsample.adapter.HistoryAdapter
 import com.ktt.archsample.dao.Record
+import com.ktt.archsample.repository.DaggerRepositoryComponent
 import com.ktt.archsample.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity(), LifecycleRegistryOwner, View.OnClickListener {
@@ -29,6 +30,8 @@ class MainActivity : AppCompatActivity(), LifecycleRegistryOwner, View.OnClickLi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        DaggerRepositoryComponent.create().inject(viewModel)
 
         lifecycle.addObserver(viewModel)
 

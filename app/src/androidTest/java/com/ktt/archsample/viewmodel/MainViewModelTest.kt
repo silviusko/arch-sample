@@ -10,7 +10,8 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.verify
 
 /**
  * @author luke_kao
@@ -21,7 +22,7 @@ class MainViewModelTest {
 
     @Before
     fun setUp() {
-        viewModel = MainViewModel(Mockito.mock(Application::class.java))
+        viewModel = MainViewModel(mock(Application::class.java))
 
         DaggerRepositoryComponent.builder()
                 .repositoryModule(RepositoryTestModule())
@@ -33,7 +34,7 @@ class MainViewModelTest {
     fun refresh() {
         viewModel.refresh()
 
-        Mockito.verify(viewModel.repository).getRecords(viewModel)
+        verify(viewModel.repository).getRecords(viewModel)
     }
 
     @Test
@@ -43,7 +44,7 @@ class MainViewModelTest {
 
         Assert.assertEquals(0, viewModel.progressLiveData.value)
         Assert.assertEquals(0, viewModel.resultLiveData.value)
-        Mockito.verify(viewModel.repository).dice(viewModel)
+        verify(viewModel.repository).dice(viewModel)
     }
 
     @Test(expected = KotlinNullPointerException::class)

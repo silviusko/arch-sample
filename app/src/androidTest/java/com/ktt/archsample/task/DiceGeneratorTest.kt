@@ -3,7 +3,7 @@ package com.ktt.archsample.task
 import android.support.test.runner.AndroidJUnit4
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
+import org.mockito.Mockito.*
 import java.util.concurrent.CountDownLatch
 
 /**
@@ -15,8 +15,8 @@ class DiceGeneratorTest {
     fun runDiceGenerator() {
         val countdownLatch = CountDownLatch(1)
 
-        val callback = Mockito.mock(DiceGenerator.Callback::class.java)
-        Mockito.`when`(callback.updateResult(Mockito.anyInt())).then { countdownLatch.countDown() }
+        val callback = mock(DiceGenerator.Callback::class.java)
+        `when`(callback.updateResult(anyInt())).then { countdownLatch.countDown() }
 
         val task = DiceGenerator(callback)
 
@@ -24,7 +24,7 @@ class DiceGeneratorTest {
 
         countdownLatch.await()
 
-        Mockito.verify(callback, Mockito.times(100)).updateProgress(Mockito.anyInt())
-        Mockito.verify(callback).updateResult(Mockito.anyInt())
+        verify(callback, times(100)).updateProgress(anyInt())
+        verify(callback).updateResult(anyInt())
     }
 }

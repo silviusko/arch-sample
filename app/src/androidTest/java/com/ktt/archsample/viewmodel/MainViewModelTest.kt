@@ -32,7 +32,7 @@ class MainViewModelTest {
 
     @Test
     fun refresh() {
-        viewModel.refresh()
+        viewModel.refreshRecords()
 
         verify(viewModel.repository).getRecords(viewModel)
     }
@@ -50,14 +50,15 @@ class MainViewModelTest {
     @Test(expected = KotlinNullPointerException::class)
     @UiThreadTest
     fun updateProgress_null() {
-        viewModel.updateProgress(null)
+        viewModel.updateProgress(null, null)
     }
 
     @Test
     @UiThreadTest
     fun updateProgress_integer() {
-        viewModel.updateProgress(123)
+        viewModel.updateProgress(123, 124)
         Assert.assertEquals(123, viewModel.progressLiveData.value)
+        Assert.assertEquals(124, viewModel.resultLiveData.value)
     }
 
     @Test(expected = KotlinNullPointerException::class)
@@ -79,7 +80,7 @@ class MainViewModelTest {
 //        Assert.assertEquals(123, recordCaptor.value)
 
         //FIXME: UnfinishedVerificationException: Missing method call for verify(mock)
-        // refresh()
+        // refreshRecords()
 //        Mockito.verify(viewModel.repository).getRecords(viewModel)
     }
 

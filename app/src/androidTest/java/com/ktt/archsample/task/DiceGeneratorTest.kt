@@ -24,7 +24,7 @@ class DiceGeneratorTest {
 
         countdownLatch.await()
 
-        verify(callback, times(100)).updateProgress(anyInt())
+        verify(callback, times(11)).updateProgress(anyInt(), anyInt())
         verify(callback).updateResult(anyInt())
     }
 }

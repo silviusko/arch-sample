@@ -10,27 +10,28 @@ import java.util.*
 
 class DiceGenerator(private val mCallback: Callback?) : AsyncTask<Void, Int, Int>() {
     interface Callback {
-        fun updateProgress(progress: Int?)
+        fun updateProgress(progress: Int?, fakeResult: Int?)
 
         fun updateResult(result: Int?)
     }
 
+    val random = Random()
+    val diceNum: Int
+        get() = random.nextInt(6) + 1
 
     override fun doInBackground(vararg params: Void): Int? {
-        val random = Random()
-
-        for (i in 0..99) {
-            publishProgress(i)
-            SystemClock.sleep((random.nextInt(15) + 5).toLong())
+        for (i in 0..10) {
+            publishProgress(i, diceNum)
+            SystemClock.sleep(100)
         }
 
-        return random.nextInt(100) + 1
+        return diceNum
     }
 
     override fun onProgressUpdate(vararg values: Int?) {
         super.onProgressUpdate(*values)
 
-        mCallback?.updateProgress(values[0])
+        mCallback?.updateProgress(values[0], values[1])
     }
 
     override fun onPostExecute(integer: Int?) {

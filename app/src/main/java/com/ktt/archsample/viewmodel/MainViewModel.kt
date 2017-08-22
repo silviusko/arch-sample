@@ -25,7 +25,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application),
     lateinit var repository: RecordRepository
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun refresh() {
+    fun refreshRecords() {
         repository.getRecords(this)
     }
 
@@ -36,8 +36,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application),
         repository.dice(this)
     }
 
-    override fun updateProgress(progress: Int?) {
+    override fun updateProgress(progress: Int?, fakeResult: Int?) {
         mProgressLiveData.value = progress!!
+        mResultLiveData.value = fakeResult!!
     }
 
     override fun updateResult(result: Int?) {
@@ -48,7 +49,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application),
 
         repository.saveRecord(record)
 
-        refresh()
+        refreshRecords()
     }
 
     override fun onRecordsLoaded(records: List<Record>) {

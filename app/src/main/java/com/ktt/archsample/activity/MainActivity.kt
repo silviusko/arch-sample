@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), LifecycleRegistryOwner, View.OnClickLi
         mProgressBar = findViewById(R.id.progressBar)
         mRecyclerView = findViewById(R.id.recyclerView)
 
-        mProgressBar.max = 100
+        mProgressBar.max = 10
         mButton.setOnClickListener(this)
 
         mHistoryAdapter = HistoryAdapter()

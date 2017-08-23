@@ -10,7 +10,6 @@ import android.support.test.runner.AndroidJUnit4
 import com.ktt.archsample.R
 import com.ktt.archsample.assertion.RecyclerViewItemCountAssertion
 import org.hamcrest.Matchers.greaterThan
-import org.hamcrest.Matchers.not
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -39,7 +38,6 @@ class MainActivityTest {
                 .perform(click())
 
         onView(withId(R.id.progressBar)).check(matches(isDisplayed()))
-        onView(withId(R.id.textView)).check(matches(not(withText(""))))
         onView(withId(R.id.recyclerView)).check(RecyclerViewItemCountAssertion(greaterThan(0)))
     }
 }

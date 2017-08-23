@@ -14,7 +14,7 @@ import java.util.concurrent.CountDownLatch
  */
 @RunWith(AndroidJUnit4::class)
 class RecordRepositoryTest {
-    lateinit var repository: RecordRepository
+    private lateinit var repository: RecordRepository
 
     @Before
     fun setUp() {
@@ -41,15 +41,8 @@ class RecordRepositoryTest {
 
     @Test
     fun getRecords() {
-        val records = TestUtil.newRecords(10)
-        `when`(repository.dao.load()).thenReturn(records)
-
-        val callback = mock(RecordRepository.Callback::class.java)
-
-        repository.getRecords(callback)
-
-        verify(repository.dao).load()
-        verify(callback).onRecordsLoaded(records)
+        repository.getRecords()
+        verify(repository.dao).loadAsync()
     }
 
     @Test

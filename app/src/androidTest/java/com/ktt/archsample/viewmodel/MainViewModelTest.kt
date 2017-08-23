@@ -3,7 +3,6 @@ package com.ktt.archsample.viewmodel
 import android.app.Application
 import android.support.test.annotation.UiThreadTest
 import android.support.test.runner.AndroidJUnit4
-import com.ktt.archsample.TestUtil
 import com.ktt.archsample.repository.DaggerRepositoryComponent
 import com.ktt.archsample.repository.RepositoryTestModule
 import org.junit.Assert
@@ -34,7 +33,7 @@ class MainViewModelTest {
     fun refresh() {
         viewModel.refreshRecords()
 
-        verify(viewModel.repository).getRecords(viewModel)
+        verify(viewModel.repository).getRecords()
     }
 
     @Test
@@ -82,17 +81,5 @@ class MainViewModelTest {
         //FIXME: UnfinishedVerificationException: Missing method call for verify(mock)
         // refreshRecords()
 //        Mockito.verify(viewModel.repository).getRecords(viewModel)
-    }
-
-    @Test
-    @UiThreadTest
-    fun onRecordsLoaded() {
-        val records = TestUtil.newRecords(10)
-
-        viewModel.historyLiveData.observeForever {
-            Assert.assertEquals(records, viewModel.historyLiveData.value)
-        }
-
-        viewModel.onRecordsLoaded(records)
     }
 }

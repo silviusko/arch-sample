@@ -14,19 +14,25 @@ import javax.inject.Inject
 
 class MainViewModel(application: Application) : AndroidViewModel(application),
         LifecycleObserver,
-        DiceGenerator.Callback,
-        RecordRepository.Callback {
+        DiceGenerator.Callback {
 
     private val mProgressLiveData: MutableLiveData<Int> = MutableLiveData()
     private val mResultLiveData: MutableLiveData<Int> = MutableLiveData()
-    private var mHistoryLiveData: MutableLiveData<List<Record>> = MutableLiveData()
+    private var mHistoryLiveData: MediatorLiveData<List<Record>> = MediatorLiveData()
+
+    private var recordSource: LiveData<List<Record>>? = null
 
     @Inject
     lateinit var repository: RecordRepository
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun refreshRecords() {
-        repository.getRecords(this)
+        mHistoryLiveData.removeSource(recordSource)
+
+        recordSource = repository.getRecords()
+        mHistoryLiveData.addSource(recordSource, { records ->
+            mHistoryLiveData.value = records
+        })
     }
 
     fun dice() {
@@ -50,10 +56,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application),
         repository.saveRecord(record)
 
         refreshRecords()
-    }
-
-    override fun onRecordsLoaded(records: List<Record>) {
-        mHistoryLiveData.postValue(records)
     }
 
     override fun onCleared() {

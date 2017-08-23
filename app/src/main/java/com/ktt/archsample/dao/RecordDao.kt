@@ -1,5 +1,6 @@
 package com.ktt.archsample.dao
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 
 /**
@@ -9,6 +10,9 @@ import android.arch.persistence.room.*
 interface RecordDao {
     @Query("SELECT * FROM records")
     fun load(): List<Record>
+
+    @Query("SELECT * FROM records")
+    fun loadAsync(): LiveData<List<Record>>
 
     // replace the :arg0 to the :id
     @Query("SELECT * FROM records WHERE id = :arg0 LIMIT 1")

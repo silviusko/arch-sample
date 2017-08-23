@@ -1,8 +1,8 @@
 package com.ktt.archsample.repository
 
 import android.arch.lifecycle.LiveData
-import com.ktt.archsample.dao.Record
-import com.ktt.archsample.dao.RecordDao
+import com.ktt.archsample.db.dao.RecordDao
+import com.ktt.archsample.db.entity.Record
 import com.ktt.archsample.task.DiceGenerator
 import java.util.concurrent.Executor
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package com.ktt.archsample.dao
+package com.ktt.archsample.db.converter
 
 import android.arch.persistence.room.TypeConverter
 import java.util.*
@@ -6,7 +6,7 @@ import java.util.*
 /**
  * @author luke_kao
  */
-class Converters {
+class DateConverter {
     @TypeConverter
     fun fromTimestamp(value: Long?): Date? {
         return if (value == null) null else Date(value)

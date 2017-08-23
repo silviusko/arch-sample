@@ -4,7 +4,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.ktt.archsample.R
-import com.ktt.archsample.dao.Record
+import com.ktt.archsample.adapter.viewholder.HistoryItemViewHolder
+import com.ktt.archsample.db.entity.Record
 
 /**
  * @author luke_kao

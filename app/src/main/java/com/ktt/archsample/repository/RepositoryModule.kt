@@ -1,7 +1,7 @@
 package com.ktt.archsample.repository
 
 import com.ktt.archsample.App
-import com.ktt.archsample.dao.RecordDao
+import com.ktt.archsample.db.dao.RecordDao
 import dagger.Module
 import dagger.Provides
 import java.util.concurrent.Executor

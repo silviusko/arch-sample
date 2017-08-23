@@ -1,6 +1,6 @@
 package com.ktt.archsample
 
-import com.ktt.archsample.dao.Record
+import com.ktt.archsample.db.entity.Record
 import java.util.*
 
 /**

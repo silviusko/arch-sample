@@ -1,9 +1,11 @@
-package com.ktt.archsample.dao
+package com.ktt.archsample.db
 
 import android.arch.persistence.room.Room
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import com.ktt.archsample.TestUtil
+import com.ktt.archsample.db.dao.RecordDao
+import com.ktt.archsample.db.entity.Record
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before

@@ -1,6 +1,5 @@
-package com.ktt.archsample.dao
+package com.ktt.archsample.db.converter
 
-import com.ktt.archsample.db.converter.Converters
 import org.junit.Assert
 import org.junit.Test
 import java.util.*
@@ -8,10 +7,10 @@ import java.util.*
 /**
  * @author luke_kao
  */
-class ConvertersTest {
+class DateConverterTest {
     @Test
     fun fromTimestamp() {
-        val converters = Converters()
+        val converters = DateConverter()
         Assert.assertNull(converters.fromTimestamp(null))
 
         val date = Date()
@@ -21,7 +20,7 @@ class ConvertersTest {
 
     @Test
     fun dateToTimestamp() {
-        val converters = Converters()
+        val converters = DateConverter()
         Assert.assertNull(converters.dateToTimestamp(null))
 
         val date = Date()

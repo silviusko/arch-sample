@@ -14,7 +14,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.ktt.archsample.R
 import com.ktt.archsample.adapter.HistoryAdapter
-import com.ktt.archsample.dao.Record
+import com.ktt.archsample.db.entity.Record
 import com.ktt.archsample.repository.DaggerRepositoryComponent
 import com.ktt.archsample.viewmodel.MainViewModel
 

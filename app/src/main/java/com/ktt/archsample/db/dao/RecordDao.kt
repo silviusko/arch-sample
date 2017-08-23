@@ -1,7 +1,8 @@
-package com.ktt.archsample.dao
+package com.ktt.archsample.db.dao
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
+import com.ktt.archsample.db.entity.Record
 
 /**
  * @author luke_kao

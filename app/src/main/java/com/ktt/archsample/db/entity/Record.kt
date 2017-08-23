@@ -1,4 +1,4 @@
-package com.ktt.archsample.dao
+package com.ktt.archsample.db.entity
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity

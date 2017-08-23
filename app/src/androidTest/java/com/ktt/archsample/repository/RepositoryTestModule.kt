@@ -1,6 +1,6 @@
 package com.ktt.archsample.repository
 
-import com.ktt.archsample.dao.RecordDao
+import com.ktt.archsample.db.dao.RecordDao
 import dagger.Module
 import org.mockito.Mockito
 import java.util.concurrent.Executor

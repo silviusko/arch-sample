@@ -1,32 +1,31 @@
 package com.ktt.archsample.repository
 
-import com.ktt.archsample.App
-import com.ktt.archsample.db.dao.RecordDao
+import android.content.Context
+import com.ktt.archsample.db.DatabaseCreator
 import dagger.Module
 import dagger.Provides
-import java.util.concurrent.Executor
 
 /**
  * @author luke_kao
  */
 @Module
-open class RepositoryModule {
+open class RepositoryModule(val context: Context) {
+
     @Provides
-    fun provideRepository(dao: RecordDao, executor: Executor): RecordRepository {
-        return newRecordRepository(dao, executor)
+    fun provideRepository(context: Context, creator: DatabaseCreator): RecordRepository {
+        return newRecordRepository(context, creator)
     }
 
     @Provides
-    fun provideDao(): RecordDao {
-        return newRecordDao()
+    fun provideContext(): Context {
+        return context
     }
 
     @Provides
-    fun provideExecutor(): Executor {
-        return newExecutor()
+    fun provideDbCreator(): DatabaseCreator {
+        return newDbCreator()
     }
 
-    open fun newRecordRepository(dao: RecordDao, executor: Executor) = RecordRepository(dao, executor)
-    open fun newRecordDao() = App.dataBase!!.recordDao()
-    open fun newExecutor() = App.executor!!
+    open fun newRecordRepository(context: Context, creator: DatabaseCreator) = RecordRepository(context, creator)
+    open fun newDbCreator() = DatabaseCreator.instance
 }

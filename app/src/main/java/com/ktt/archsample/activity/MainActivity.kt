@@ -16,6 +16,7 @@ import com.ktt.archsample.R
 import com.ktt.archsample.adapter.HistoryAdapter
 import com.ktt.archsample.db.entity.Record
 import com.ktt.archsample.repository.DaggerRepositoryComponent
+import com.ktt.archsample.repository.RepositoryModule
 import com.ktt.archsample.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity(), LifecycleRegistryOwner, View.OnClickListener {
@@ -31,7 +32,10 @@ class MainActivity : AppCompatActivity(), LifecycleRegistryOwner, View.OnClickLi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        DaggerRepositoryComponent.create().inject(viewModel)
+        DaggerRepositoryComponent.builder()
+                .repositoryModule(RepositoryModule(applicationContext))
+                .build()
+                .inject(viewModel)
 
         lifecycle.addObserver(viewModel)
 

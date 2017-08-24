@@ -1,6 +1,7 @@
 package com.ktt.archsample.viewmodel
 
 import android.app.Application
+import android.support.test.InstrumentationRegistry
 import android.support.test.annotation.UiThreadTest
 import android.support.test.runner.AndroidJUnit4
 import com.ktt.archsample.repository.DaggerRepositoryComponent
@@ -21,19 +22,13 @@ class MainViewModelTest {
 
     @Before
     fun setUp() {
+        val context = InstrumentationRegistry.getTargetContext()
         viewModel = MainViewModel(mock(Application::class.java))
 
         DaggerRepositoryComponent.builder()
-                .repositoryModule(RepositoryTestModule())
+                .repositoryModule(RepositoryTestModule(context))
                 .build()
                 .inject(viewModel)
-    }
-
-    @Test
-    fun refresh() {
-        viewModel.refreshRecords()
-
-        verify(viewModel.repository).getRecords()
     }
 
     @Test

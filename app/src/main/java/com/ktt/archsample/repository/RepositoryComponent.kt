@@ -1,9 +1,9 @@
 package com.ktt.archsample.repository
 
-import com.ktt.archsample.db.dao.RecordDao
+import android.content.Context
+import com.ktt.archsample.db.DatabaseCreator
 import com.ktt.archsample.viewmodel.MainViewModel
 import dagger.Component
-import java.util.concurrent.Executor
 
 /**
  * @author luke_kao
@@ -13,9 +13,9 @@ interface RepositoryComponent {
 
     fun provideRepository(): RecordRepository
 
-    fun provideRecordDao(): RecordDao
+    fun provideContext(): Context
 
-    fun provideExecutor(): Executor
+    fun provideDatabaseCreator(): DatabaseCreator
 
     fun inject(viewModel: MainViewModel)
 }

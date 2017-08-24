@@ -20,17 +20,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application),
     private val mResultLiveData: MutableLiveData<Int> = MutableLiveData()
     private var mHistoryLiveData: MediatorLiveData<List<Record>> = MediatorLiveData()
 
-    private var recordSource: LiveData<List<Record>>? = null
-
     @Inject
     lateinit var repository: RecordRepository
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun refreshRecords() {
-        mHistoryLiveData.removeSource(recordSource)
-
-        recordSource = repository.getRecords()
-        mHistoryLiveData.addSource(recordSource, { records ->
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun onCreate() {
+        mHistoryLiveData.addSource(repository.records, { records ->
             mHistoryLiveData.value = records
         })
     }
@@ -54,8 +49,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application),
         record.value = result
 
         repository.saveRecord(record)
-
-        refreshRecords()
     }
 
     override fun onCleared() {

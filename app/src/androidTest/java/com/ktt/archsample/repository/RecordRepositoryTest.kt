@@ -22,7 +22,8 @@ class RecordRepositoryTest {
         val component = DaggerRepositoryComponent.builder()
                 .repositoryModule(RepositoryTestModule(context.applicationContext))
                 .build()
-        repository = RecordRepository(component.provideContext(), component.provideDatabaseCreator())
+
+        repository = component.provideRepository()
     }
 
     @Test

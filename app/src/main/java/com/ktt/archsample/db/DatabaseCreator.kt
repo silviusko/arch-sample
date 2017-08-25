@@ -9,13 +9,9 @@ import java.util.concurrent.atomic.AtomicBoolean
 /**
  * @author luke_kao
  */
-open class DatabaseCreator {
-    private object Holder {
-        val INSTANCE = DatabaseCreator()
-    }
-
+open class DatabaseCreator private constructor() {
     companion object {
-        val instance: DatabaseCreator by lazy { Holder.INSTANCE }
+        val instance = DatabaseCreator()
     }
 
     lateinit var database: AppDataBase
@@ -23,9 +19,9 @@ open class DatabaseCreator {
         private set
 
     private val isDbCreated = MutableLiveData<Boolean>()
-    private var isInitialized = AtomicBoolean(false)
+    private val isInitialized = AtomicBoolean(false)
 
-    fun init(context: Context) {
+    fun create(context: Context) {
         if (!isInitialized.compareAndSet(false, true)) return
 
         isDbCreated.value = false

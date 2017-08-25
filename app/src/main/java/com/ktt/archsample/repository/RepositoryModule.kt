@@ -4,6 +4,8 @@ import android.content.Context
 import com.ktt.archsample.db.DatabaseCreator
 import dagger.Module
 import dagger.Provides
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 
 /**
  * @author luke_kao
@@ -12,8 +14,8 @@ import dagger.Provides
 open class RepositoryModule(val context: Context) {
 
     @Provides
-    fun provideRepository(context: Context, creator: DatabaseCreator): RecordRepository {
-        return newRecordRepository(context, creator)
+    fun provideRepository(context: Context, creator: DatabaseCreator, executor: Executor): RecordRepository {
+        return newRecordRepository(context, creator, executor)
     }
 
     @Provides
@@ -26,6 +28,14 @@ open class RepositoryModule(val context: Context) {
         return newDbCreator()
     }
 
-    open fun newRecordRepository(context: Context, creator: DatabaseCreator) = RecordRepository(context, creator)
+    @Provides
+    fun provideExecutor(): Executor {
+        return newExecutor()
+    }
+
+    open fun newRecordRepository(context: Context, creator: DatabaseCreator, executor: Executor)
+            = RecordRepository(context, creator, executor)
+
     open fun newDbCreator() = DatabaseCreator.instance
+    open fun newExecutor(): Executor = Executors.newFixedThreadPool(5)
 }

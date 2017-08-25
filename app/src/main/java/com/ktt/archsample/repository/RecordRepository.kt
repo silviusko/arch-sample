@@ -7,12 +7,16 @@ import android.content.Context
 import com.ktt.archsample.db.DatabaseCreator
 import com.ktt.archsample.db.entity.Record
 import com.ktt.archsample.task.DiceGenerator
+import java.util.concurrent.Executor
 import javax.inject.Inject
 
 /**
  * @author luke_kao
  */
-open class RecordRepository @Inject constructor(context: Context, private val dbCreator: DatabaseCreator) {
+open class RecordRepository
+@Inject constructor(context: Context,
+                    private val dbCreator: DatabaseCreator,
+                    private val executor: Executor) {
     private val ABSENT = MutableLiveData<List<Record>>()
 
     val records: LiveData<List<Record>>
@@ -27,7 +31,7 @@ open class RecordRepository @Inject constructor(context: Context, private val db
             }
         })
 
-        dbCreator.init(context.applicationContext)
+        dbCreator.create(context)
     }
 
     fun dice(callback: DiceGenerator.Callback) {
@@ -37,10 +41,10 @@ open class RecordRepository @Inject constructor(context: Context, private val db
 
 
     fun saveRecord(record: Record) {
-        Thread({
+        executor.execute {
             val database = dbCreator.database
             val recordDao = database.recordDao()
             recordDao.save(record)
-        }).start()
+        }
     }
 }

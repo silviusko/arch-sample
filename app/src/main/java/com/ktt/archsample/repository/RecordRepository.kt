@@ -14,14 +14,14 @@ import javax.inject.Inject
  * @author luke_kao
  */
 open class RecordRepository
-@Inject constructor(context: Context,
-                    private val dbCreator: DatabaseCreator,
-                    private val executor: Executor) {
+@Inject constructor(val context: Context,
+                    val dbCreator: DatabaseCreator,
+                    val executor: Executor) {
     private val ABSENT = MutableLiveData<List<Record>>()
 
     lateinit var records: LiveData<List<Record>>
 
-    fun loadRecords(context: Context) {
+    fun loadRecords() {
         val isDbCreated = dbCreator.isCreated()
         records = Transformations.switchMap(isDbCreated, {
             if (it) {

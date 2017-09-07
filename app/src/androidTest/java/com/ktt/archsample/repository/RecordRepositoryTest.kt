@@ -1,6 +1,7 @@
 package com.ktt.archsample.repository
 
 import android.support.test.InstrumentationRegistry
+import android.support.test.annotation.UiThreadTest
 import android.support.test.runner.AndroidJUnit4
 import com.ktt.archsample.task.DiceGenerator
 import org.junit.Before
@@ -20,10 +21,22 @@ class RecordRepositoryTest {
     fun setUp() {
         val context = InstrumentationRegistry.getTargetContext()
         val component = DaggerRepositoryComponent.builder()
-                .repositoryModule(RepositoryTestModule(context.applicationContext))
+                .repositoryModule(RepositoryTestModule(context))
                 .build()
 
-        repository = component.provideRepository()
+        repository = RecordRepository(
+                component.provideContext(),
+                component.provideDatabaseCreator(),
+                component.provideExecutor()
+        )
+    }
+
+    @Test
+    @UiThreadTest
+    fun loadRecords() {
+        repository.loadRecords()
+
+        verify(repository.dbCreator).create(repository.context)
     }
 
     @Test

@@ -3,7 +3,8 @@ package com.ktt.archsample.repository
 import android.content.Context
 import com.ktt.archsample.db.DatabaseCreator
 import dagger.Module
-import org.mockito.Mockito
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.withSettings
 import java.util.concurrent.Executor
 
 /**
@@ -13,14 +14,14 @@ import java.util.concurrent.Executor
 class RepositoryTestModule(context: Context) : RepositoryModule(context) {
 
     override fun newRecordRepository(context: Context, creator: DatabaseCreator, executor: Executor): RecordRepository {
-        return Mockito.mock(RecordRepository::class.java, Mockito.withSettings().useConstructor(context, creator, executor))
+        return mock(RecordRepository::class.java, withSettings().useConstructor(context, creator, executor))
     }
 
-    override fun newDbCreator(): DatabaseCreator {
-        return Mockito.mock(DatabaseCreator::class.java)
+    override fun newDbCreator(executor: Executor): DatabaseCreator {
+        return mock(DatabaseCreator::class.java, withSettings().useConstructor(executor))
     }
 
     override fun newExecutor(): Executor {
-        return Mockito.mock(Executor::class.java)
+        return mock(Executor::class.java)
     }
 }

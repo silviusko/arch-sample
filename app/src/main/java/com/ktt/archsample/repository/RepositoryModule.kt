@@ -24,8 +24,8 @@ open class RepositoryModule(val context: Context) {
     }
 
     @Provides
-    fun provideDbCreator(): DatabaseCreator {
-        return newDbCreator()
+    fun provideDbCreator(executor: Executor): DatabaseCreator {
+        return newDbCreator(executor)
     }
 
     @Provides
@@ -36,6 +36,6 @@ open class RepositoryModule(val context: Context) {
     open fun newRecordRepository(context: Context, creator: DatabaseCreator, executor: Executor)
             = RecordRepository(context, creator, executor)
 
-    open fun newDbCreator() = DatabaseCreator.instance
+    open fun newDbCreator(executor: Executor) = DatabaseCreator(executor)
     open fun newExecutor(): Executor = Executors.newFixedThreadPool(5)
 }

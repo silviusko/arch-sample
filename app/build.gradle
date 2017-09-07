@@ -48,7 +48,7 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$android_arch_version"
     implementation "android.arch.persistence.room:runtime:$android_arch_version"
     implementation "com.google.dagger:dagger:$dagger_version"
-    implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.0'
+    implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.1'
 
     kapt "android.arch.lifecycle:compiler:$android_arch_version"
     kapt "android.arch.persistence.room:compiler:$android_arch_version"

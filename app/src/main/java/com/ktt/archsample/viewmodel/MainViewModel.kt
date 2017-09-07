@@ -25,6 +25,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application),
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
+        repository.loadRecords(getApplication())
+
         mHistoryLiveData.addSource(repository.records, { records ->
             mHistoryLiveData.value = records
         })

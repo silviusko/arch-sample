@@ -19,9 +19,9 @@ open class RecordRepository
                     private val executor: Executor) {
     private val ABSENT = MutableLiveData<List<Record>>()
 
-    val records: LiveData<List<Record>>
+    lateinit var records: LiveData<List<Record>>
 
-    init {
+    fun loadRecords(context: Context) {
         val isDbCreated = dbCreator.isCreated()
         records = Transformations.switchMap(isDbCreated, {
             if (it) {

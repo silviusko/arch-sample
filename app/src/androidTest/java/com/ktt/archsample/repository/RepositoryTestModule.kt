@@ -21,6 +21,6 @@ class RepositoryTestModule(context: Context) : RepositoryModule(context) {
     }
 
     override fun newExecutor(): Executor {
-        return Executor { it.run() }
+        return Mockito.mock(Executor::class.java)
     }
 }

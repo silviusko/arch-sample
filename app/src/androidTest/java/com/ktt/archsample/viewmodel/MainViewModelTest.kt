@@ -4,6 +4,8 @@ import android.app.Application
 import android.support.test.InstrumentationRegistry
 import android.support.test.annotation.UiThreadTest
 import android.support.test.runner.AndroidJUnit4
+import com.ktt.archsample.AppTestMoudle
+import com.ktt.archsample.DaggerAppComponent
 import com.ktt.archsample.repository.DaggerRepositoryComponent
 import com.ktt.archsample.repository.RepositoryTestModule
 import org.junit.Assert
@@ -25,7 +27,12 @@ class MainViewModelTest {
         val context = InstrumentationRegistry.getTargetContext()
         viewModel = MainViewModel(mock(Application::class.java))
 
+        val appComponent = DaggerAppComponent.builder()
+                .appModule(AppTestMoudle())
+                .build()
+
         DaggerRepositoryComponent.builder()
+                .appComponent(appComponent)
                 .repositoryModule(RepositoryTestModule(context))
                 .build()
                 .inject(viewModel)

@@ -20,8 +20,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application),
     private val mResultLiveData: MutableLiveData<Int> = MutableLiveData()
     private var mHistoryLiveData: MediatorLiveData<List<Record>> = MediatorLiveData()
 
-    @Inject
     lateinit var repository: RecordRepository
+        @Inject set // method injection
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {

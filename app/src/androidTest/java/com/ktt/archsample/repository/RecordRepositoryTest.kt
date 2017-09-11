@@ -3,6 +3,8 @@ package com.ktt.archsample.repository
 import android.support.test.InstrumentationRegistry
 import android.support.test.annotation.UiThreadTest
 import android.support.test.runner.AndroidJUnit4
+import com.ktt.archsample.AppTestMoudle
+import com.ktt.archsample.DaggerAppComponent
 import com.ktt.archsample.task.DiceGenerator
 import org.junit.Before
 import org.junit.Test
@@ -20,14 +22,20 @@ class RecordRepositoryTest {
     @Before
     fun setUp() {
         val context = InstrumentationRegistry.getTargetContext()
+
+        val appComponent = DaggerAppComponent.builder()
+                .appModule(AppTestMoudle())
+                .build()
+
         val component = DaggerRepositoryComponent.builder()
+                .appComponent(appComponent)
                 .repositoryModule(RepositoryTestModule(context))
                 .build()
 
         repository = RecordRepository(
                 component.provideContext(),
-                component.provideDatabaseCreator(),
-                component.provideExecutor()
+                appComponent.provideDatabaseCreator(),
+                appComponent.provideExecutor()
         )
     }
 

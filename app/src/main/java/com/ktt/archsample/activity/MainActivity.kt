@@ -12,7 +12,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.ktt.archsample.DaggerAppComponent
+import com.ktt.archsample.App
 import com.ktt.archsample.R
 import com.ktt.archsample.adapter.HistoryAdapter
 import com.ktt.archsample.db.entity.Record
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), LifecycleRegistryOwner, View.OnClickLi
         setContentView(R.layout.activity_main)
 
         DaggerRepositoryComponent.builder()
-                .appComponent(DaggerAppComponent.create())
+                .appComponent(App.appComponent())
                 .repositoryModule(RepositoryModule(applicationContext))
                 .build()
                 .inject(viewModel)

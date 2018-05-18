@@ -1,17 +1,15 @@
 package com.ktt.archsample.activity
 
-import android.arch.lifecycle.LifecycleRegistry
-import android.arch.lifecycle.LifecycleRegistryOwner
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.LifecycleRegistryOwner
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.ktt.archsample.App
 import com.ktt.archsample.R
 import com.ktt.archsample.adapter.HistoryAdapter
@@ -26,7 +24,7 @@ class MainActivity : AppCompatActivity(), LifecycleRegistryOwner, View.OnClickLi
     private lateinit var mTextView: TextView
     private lateinit var mButton: Button
     private lateinit var mProgressBar: ProgressBar
-    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mRecyclerView: androidx.recyclerview.widget.RecyclerView
     private lateinit var mHistoryAdapter: HistoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +54,7 @@ class MainActivity : AppCompatActivity(), LifecycleRegistryOwner, View.OnClickLi
 
         mHistoryAdapter = HistoryAdapter()
         mRecyclerView.adapter = mHistoryAdapter
-        mRecyclerView.layoutManager = LinearLayoutManager(this)
+        mRecyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
     }
 
     private fun bindViews() {

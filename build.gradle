@@ -2,11 +2,7 @@
 
 buildscript {
     ext {
-        kotlin_version = '1.1.4-3'
-        supprot_library_version = '26.0.2'
-        android_arch_version = '1.0.0-alpha9'
-        espresso_version = '3.0.0'
-        dagger_version = '2.11'
+        kotlin_version = '1.2.41'
     }
 
     repositories {
@@ -15,7 +11,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-beta5'
+        classpath 'com.android.tools.build:gradle:3.2.0-alpha15'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong

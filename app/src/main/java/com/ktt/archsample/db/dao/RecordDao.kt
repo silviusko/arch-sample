@@ -1,7 +1,7 @@
 package com.ktt.archsample.db.dao
 
-import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.*
+import androidx.lifecycle.LiveData
+import androidx.room.*
 import com.ktt.archsample.db.entity.Record
 
 /**
@@ -15,8 +15,7 @@ interface RecordDao {
     @Query("SELECT * FROM records")
     fun loadAsync(): LiveData<List<Record>>
 
-    // replace the :arg0 to the :id
-    @Query("SELECT * FROM records WHERE id = :arg0 LIMIT 1")
+    @Query("SELECT * FROM records WHERE id = :id LIMIT 1")
     fun loadById(id: Int): Record?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

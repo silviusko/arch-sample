@@ -1,9 +1,9 @@
 package com.ktt.archsample.db
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.persistence.room.Room
 import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.room.Room
 import java.util.concurrent.Executor
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject

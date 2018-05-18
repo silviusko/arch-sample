@@ -1,8 +1,8 @@
 package com.ktt.archsample.repository
 
-import android.support.test.InstrumentationRegistry
-import android.support.test.annotation.UiThreadTest
-import android.support.test.runner.AndroidJUnit4
+import androidx.test.InstrumentationRegistry
+import androidx.test.annotation.UiThreadTest
+import androidx.test.runner.AndroidJUnit4
 import com.ktt.archsample.AppTestMoudle
 import com.ktt.archsample.DaggerAppComponent
 import com.ktt.archsample.task.DiceGenerator

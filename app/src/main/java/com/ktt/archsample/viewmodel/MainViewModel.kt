@@ -1,8 +1,8 @@
 package com.ktt.archsample.viewmodel
 
 import android.app.Application
-import android.arch.lifecycle.*
 import android.util.Log
+import androidx.lifecycle.*
 import com.ktt.archsample.db.entity.Record
 import com.ktt.archsample.repository.RecordRepository
 import com.ktt.archsample.task.DiceGenerator

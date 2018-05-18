@@ -1,8 +1,8 @@
 package com.ktt.archsample.db
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
-import android.arch.persistence.room.TypeConverters
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.ktt.archsample.db.converter.DateConverter
 import com.ktt.archsample.db.dao.RecordDao
 import com.ktt.archsample.db.entity.Record

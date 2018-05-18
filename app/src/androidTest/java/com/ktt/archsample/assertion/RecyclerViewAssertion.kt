@@ -1,10 +1,9 @@
 package com.ktt.archsample.assertion
 
-import android.support.test.espresso.NoMatchingViewException
-import android.support.test.espresso.ViewAssertion
-import android.support.test.espresso.matcher.ViewMatchers
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.test.espresso.NoMatchingViewException
+import androidx.test.espresso.ViewAssertion
+import androidx.test.espresso.matcher.ViewMatchers
 import org.hamcrest.Matcher
 
 /**
@@ -17,16 +16,16 @@ abstract class RecyclerViewAssertion : ViewAssertion {
             throw noViewFoundException
         }
 
-        val recyclerView = view as RecyclerView
+        val recyclerView = view as androidx.recyclerview.widget.RecyclerView
         assert(recyclerView)
     }
 
-    abstract fun assert(recyclerView: RecyclerView)
+    abstract fun assert(recyclerView: androidx.recyclerview.widget.RecyclerView)
 }
 
 class RecyclerViewItemCountAssertion(private val itemCountMatcher: Matcher<Int>) : RecyclerViewAssertion() {
-    override fun assert(recyclerView: RecyclerView) {
+    override fun assert(recyclerView: androidx.recyclerview.widget.RecyclerView) {
         val adapter = recyclerView.adapter
-        ViewMatchers.assertThat(adapter.itemCount, itemCountMatcher)
+        ViewMatchers.assertThat(adapter?.itemCount, itemCountMatcher)
     }
 }
